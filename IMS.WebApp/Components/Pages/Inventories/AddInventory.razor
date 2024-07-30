@@ -1,11 +1,11 @@
-﻿@page "/addinventory"
+﻿@page "/editinventory"
 
-@inject IAddInventoryUseCase AddInventoryUseCase
+@inject IEditInventoryUseCase EditInventoryUseCase
 @inject NavigationManager NavigationManager
 
-<PageTitle>Add Inventory</PageTitle>
+<PageTitle>Edit Inventory</PageTitle>
 
-<h3>Add Inventory</h3>
+<h3>Edit Inventory</h3>
 <br />
 
 <EditForm Model="inventory" FormName="formInventory" OnValidSubmit="Save">
@@ -56,7 +56,7 @@
 
     private async Task Save()
     {
-        await AddInventoryUseCase.ExecuteAsync(inventory);
+        await EditInventoryUseCase.ExecuteAsync(inventory);
 
         NavigationManager.NavigateTo("/inventories");
     }

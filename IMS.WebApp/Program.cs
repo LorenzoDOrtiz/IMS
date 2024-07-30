@@ -13,6 +13,8 @@ builder.Services.AddSingleton<IInventoryRepository, InventoryRepository>();
 
 builder.Services.AddTransient<IViewInventoriesByNameUseCase, ViewInventoriesByNameUseCase>();
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
+builder.Services.AddTransient<IEditInventoryUseCase, EditInventoryUseCase>();
+builder.Services.AddTransient<IViewInventoryByIdUseCase, ViewInventoryByIdUseCase>();
 
 var app = builder.Build();
 

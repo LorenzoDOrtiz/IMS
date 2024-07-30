@@ -5,10 +5,11 @@
         <td>@Inventory.Quantity</td>
         <td>@Inventory.Price.ToString("c")</td>
         <td>
-            <button class="btn btn-light"
-                    type="button">
+            <a class="btn btn-light"
+               role="button"
+               href="/editinventory/@Inventory.InventoryId" >
                 Edit
-            </button>
+            </a>
         </td>
     </tr>
 }
@@ -16,4 +17,6 @@
 @code {
     [Parameter]
     public Inventory? Inventory { get; set; }
+
+
 }

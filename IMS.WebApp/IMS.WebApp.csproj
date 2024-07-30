@@ -12,4 +12,10 @@
     <ProjectReference Include="..\IMS.UseCases\IMS.UseCases.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\Inventories\EditInventory.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>
