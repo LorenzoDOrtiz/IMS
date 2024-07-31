@@ -1,4 +1,5 @@
 ﻿@page "/addproduct"
+@using IMS.WebApp.Components.Controls
 
 @rendermode InteractiveServer
 
@@ -46,7 +47,7 @@
 
     <div class="form-group">
         <label for="price">Inventories</label>
-        <SearchProductInventoriesComponent />
+        <ProductInventoriesComponent Product="this.product"/>
     </div>
     <br />
 

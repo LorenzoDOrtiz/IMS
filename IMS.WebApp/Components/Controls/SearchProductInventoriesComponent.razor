@@ -11,19 +11,22 @@
 @if (inventories is not null && inventories.Count > 0)
 {
     <div class="search-result">
-    <ul>
-        @foreach (var inv in inventories)
-        {
-            <li @key="inv.InventoryId">
-                @inv.InventoryName
-            </li>
-        }
+        <ul>
+            @foreach (var inv in inventories)
+            {
+                <li @key="inv.InventoryId" @onclick="() => { HandleSelectInventory(inv); }">
+                    @inv.InventoryName
+                </li>
+            }
         </ul>
     </div>
 }
 
 @code {
-    private string _searchFilter;
+
+    [Parameter]
+    public EventCallback<Inventory> OnInventorySelected { get; set; }
+    private string _searchFilter = string.Empty;
     private string searchFilter 
     {
         get => _searchFilter;
@@ -41,5 +44,11 @@
         inventories = (await ViewInventoriesByNameUseCase.ExecuteAsync(searchFilter)).ToList();
 
         StateHasChanged();
+    }
+
+    private async Task HandleSelectInventory(Inventory inventory)
+    {
+        await OnInventorySelected.InvokeAsync(inventory);
+        inventories.Clear();
     }
 }

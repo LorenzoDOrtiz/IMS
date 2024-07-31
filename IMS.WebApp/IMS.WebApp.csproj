@@ -18,4 +18,16 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\Controls\ProductInventoriesComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\Controls\ProductInventoriesComponent.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Controls\ProductInventoriesComponent.razor" />
+  </ItemGroup>
+
 </Project>
