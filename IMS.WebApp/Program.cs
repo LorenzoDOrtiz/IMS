@@ -1,6 +1,8 @@
 using IMS.Plugins.InMemory;
+using IMS.UseCases.Activities.Interfaces;
 using IMS.UseCases.Inventories;
 using IMS.UseCases.Inventories.Interfaces;
+using IMS.UseCases.Plugin;
 using IMS.UseCases.PluginInterfaces;
 using IMS.UseCases.Products;
 using IMS.UseCases.Products.Interfaces;
@@ -13,6 +15,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Inventory Dependency Injection
+
 // Repository
 builder.Services.AddSingleton<IInventoryRepository, InventoryRepository>();
 
@@ -24,6 +27,7 @@ builder.Services.AddTransient<IViewInventoryByIdUseCase, ViewInventoryByIdUseCas
 builder.Services.AddTransient<IDeleteInventoryUseCase, DeleteInventoryUseCase>();
 
 // Product Dependency Injection
+
 // Repository
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 
@@ -33,6 +37,14 @@ builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddTransient<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddTransient<IViewProductByIdUseCase, ViewProductByIdUseCase>();
 builder.Services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
+
+// Product Dependency Injection
+
+// Repository
+builder.Services.AddSingleton<IInventoryTransactionRepository, InventoryTransactionRepository>();
+
+// Interfaces and use case implementations
+builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCase>();
 
 var app = builder.Build();
 
