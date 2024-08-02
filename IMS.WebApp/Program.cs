@@ -41,6 +41,9 @@ builder.Services.AddTransient<IPurchaseInventoryUseCase, PurchaseInventoryUseCas
 // Produce product interfaces and use case implementations
 builder.Services.AddTransient<IProduceProductUseCase, ProduceProductUseCase>();
 
+// Sell product interfaces and use case implementations
+builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
