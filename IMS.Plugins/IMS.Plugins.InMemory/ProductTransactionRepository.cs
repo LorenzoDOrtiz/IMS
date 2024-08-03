@@ -57,7 +57,7 @@ public class ProductTransactionRepository : IProductTransactionRepository
         });
     }
 
-    public Task SellProductAsync(string salesOrderNumber, Product product, int quantity, string doneBy)
+    public Task SellProductAsync(string salesOrderNumber, Product product, int quantity, double unitPrice, string doneBy)
     {
         _productTransactions.Add(new ProductTransaction
         {
@@ -68,7 +68,7 @@ public class ProductTransactionRepository : IProductTransactionRepository
             QuantityAfter = product.Quantity - quantity,
             TransactionDate = DateTime.UtcNow,
             DoneBy = doneBy,
-            UnitPrice = product.Price
+            UnitPrice = unitPrice
         });
 
         return Task.CompletedTask;

@@ -14,9 +14,9 @@ public class SellProductUseCase : ISellProductUseCase
         _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync(string salesOrderNumber, Product product, int quantity, string doneBy)
+    public async Task ExecuteAsync(string salesOrderNumber, Product product, int quantity, double unitPrice, string doneBy)
     {
-        await _productTransactionRepository.SellProductAsync(salesOrderNumber, product, quantity, doneBy);
+        await _productTransactionRepository.SellProductAsync(salesOrderNumber, product, quantity, unitPrice, doneBy);
 
         product.Quantity -= quantity;
 
