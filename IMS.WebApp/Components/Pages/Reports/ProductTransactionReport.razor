@@ -4,9 +4,12 @@
 @rendermode InteractiveServer
 
 @inject ISearchProductTransactionsUseCase SearchProductTransactionsUseCase
+@inject IJSRuntime JSRuntime
 
 <h3>Product Transaction</h3>
 <br />
+
+<div id="printarea"> 
 
 <div class="row">
     <div class="col">
@@ -37,6 +40,11 @@
     <div class="col">
         <label>&nbsp;</label>
         <button type="button" class="btn btn-primary form-control" @onclick="SearchProducts">Search</button>
+    </div>
+    
+    <div class="col">
+        <label>&nbsp;</label>
+        <button type="button" class="btn btn-primary form-control" @onclick="Print">Print</button>
     </div>
 </div>
 
@@ -82,6 +90,8 @@
     </table>
 }
 
+</div>
+
 @code {
     private string prodName;
     private DateTime? dateFrom;
@@ -98,4 +108,8 @@
         productTransactions = await SearchProductTransactionsUseCase.ExecuteAsync(prodName, dateFrom, dateTo, prodType);
     }
 
+    private async Task Print()
+    {
+        await JSRuntime.InvokeVoidAsync("print");
+    }
 }
