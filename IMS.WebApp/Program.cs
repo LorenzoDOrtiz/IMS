@@ -48,6 +48,7 @@ builder.Services.AddTransient<ISellProductUseCase, SellProductUseCase>();
 
 // Report interfaces and use case implementations
 builder.Services.AddTransient<ISearchInventoryTransactionsUseCase, SearchInventoryTransactionsUseCase>();
+builder.Services.AddTransient<ISearchProductTransactionsUseCase, SearchProductTransactionsUseCase>();
 
 var app = builder.Build();
 
