@@ -1,8 +1,11 @@
 ﻿@page "/purchase"
-@using static IMS.WebApp.Components.Controls.Common.AutoCompleteComponent
+@attribute [Authorize(Policy = "Purchasers")]
 
 @rendermode InteractiveServer
 
+@using static IMS.WebApp.Components.Controls.Common.AutoCompleteComponent
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime JSRuntime
 
 @inject IViewInventoriesByNameUseCase ViewInventoriesByNameUseCase
@@ -50,8 +53,14 @@
 
 @code {
     private PurchaseViewModel purchaseViewModel = new();
-
     private Inventory? selectedInventory = null;
+
+    private AuthenticationState? authState;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -82,11 +91,18 @@
 
     private async Task Purchase()
     {
+        string userName = string.Empty;
+
+        if (authState?.User?.Identity?.IsAuthenticated ?? false)
+        {
+            userName = authState.User.Identity.Name ?? string.Empty;
+        }
+
         await PurchaseInventoryUseCase.ExecuteAsync(
             purchaseViewModel.PONumber,
             selectedInventory,
             purchaseViewModel.QuantityToPurchase,
-            "Lorenzo");
+            userName);
 
         purchaseViewModel = new();
         selectedInventory = null;
