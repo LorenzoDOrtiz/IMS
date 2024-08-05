@@ -1,5 +1,6 @@
 ﻿@page "/purchase"
 @attribute [Authorize(Policy = "Purchasers")]
+@attribute [Authorize(Policy = "Admin")]
 
 @rendermode InteractiveServer
 

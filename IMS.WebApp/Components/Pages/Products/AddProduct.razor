@@ -1,5 +1,6 @@
 ﻿@page "/addproduct"
 @attribute [Authorize(Policy = "Inventory")]
+@attribute [Authorize(Policy = "Admin")]
 
 @using IMS.WebApp.Components.Controls
 

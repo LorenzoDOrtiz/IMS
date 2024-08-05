@@ -1,5 +1,6 @@
 ﻿@page "/sell"
 @attribute [Authorize(Policy = "Sales")]
+@attribute [Authorize(Policy = "Admin")]
 
 @rendermode InteractiveServer
 
