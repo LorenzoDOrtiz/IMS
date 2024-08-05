@@ -2,7 +2,7 @@
 
 namespace IMS.CoreBusiness;
 
-public class Inventory
+public class InventoryViewModel
 {
     public int InventoryId { get; set; }
 
@@ -15,6 +15,4 @@ public class Inventory
 
     [Range(0, int.MaxValue, ErrorMessage = "Price must be greater or equal to 0.")]
     public double Price { get; set; }
-
-    public List<ProductInventory> ProductInventories { get; set; } = new();
 }

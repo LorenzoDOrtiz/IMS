@@ -2,24 +2,25 @@
 using IMS.UseCases.PluginInterfaces;
 
 namespace IMS.Plugins.InMemory;
+
 public class InventoryTransactionRepository : IInventoryTransactionRepository
 {
-    private readonly IInventoryRepository _inventoryRepository;
-    public List<InventoryTransaction> _inventoryTransactions = new();
+    private readonly IInventoryRepository inventoryRepository;
+    public List<InventoryTransaction> _inventoryTransactions = new List<InventoryTransaction>();
 
     public InventoryTransactionRepository(IInventoryRepository inventoryRepository)
     {
-        _inventoryRepository = inventoryRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
-    public async Task<IEnumerable<InventoryTransaction>> GetInventoryTransactionsAsync(string inventoryName, DateTime? dateFrom, DateTime? dateTo, InventoryTransactionType? transactionType)
+    public async Task<IEnumerable<InventoryTransaction>> GetInventoryTransactionAsync(string inventoryName, DateTime? dateFrom, DateTime? dateTo, InventoryTransactionType? transactionType)
     {
-        var inventories = (await _inventoryRepository.GetInventoriesByNameAsync(string.Empty)).ToList();
+        var inventories = (await inventoryRepository.GetInventoriesByNameAsync(string.Empty)).ToList();
 
-        var query = from it in _inventoryTransactions
+        var query = from it in this._inventoryTransactions
                     join inv in inventories on it.InventoryId equals inv.InventoryId
                     where
-                        (string.IsNullOrEmpty(inventoryName) || inv.InventoryName.ToLower().IndexOf(inventoryName.ToLower()) >= 0)
+                        (string.IsNullOrWhiteSpace(inventoryName) || inv.InventoryName.ToLower().IndexOf(inventoryName.ToLower()) >= 0)
                         &&
                         (!dateFrom.HasValue || it.TransactionDate >= dateFrom.Value.Date) &&
                         (!dateTo.HasValue || it.TransactionDate <= dateTo.Value.Date) &&
@@ -41,9 +42,9 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
         return query;
     }
 
-    public void ProduceAsync(string productionNumber, Inventory inventory, int quantityToConsume, string doneBy, double price)
+    public Task ProduceAsync(string productionNumber, Inventory inventory, int quantityToConsume, string doneBy, double price)
     {
-        _inventoryTransactions.Add(new InventoryTransaction
+        this._inventoryTransactions.Add(new InventoryTransaction
         {
             ProductionNumber = productionNumber,
             InventoryId = inventory.InventoryId,
@@ -54,11 +55,13 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
             DoneBy = doneBy,
             UnitPrice = price
         });
+
+        return Task.CompletedTask;
     }
 
-    public void PurchaseAsync(string poNumber, Inventory inventory, int quantity, string doneBy, double price)
+    public Task PurchaseAsync(string poNumber, Inventory inventory, int quantity, string doneBy, double price)
     {
-        _inventoryTransactions.Add(new InventoryTransaction
+        this._inventoryTransactions.Add(new InventoryTransaction
         {
             PONumber = poNumber,
             InventoryId = inventory.InventoryId,
@@ -69,5 +72,7 @@ public class InventoryTransactionRepository : IInventoryTransactionRepository
             DoneBy = doneBy,
             UnitPrice = price
         });
+
+        return Task.CompletedTask;
     }
 }

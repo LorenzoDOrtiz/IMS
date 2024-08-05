@@ -50,13 +50,20 @@
 </EditForm>
 
 @code {
-
     [SupplyParameterFromForm]
-    private Inventory inventory { get; set; } = new();
+    private InventoryViewModel inventory { get; set; } = new();
 
     private async Task Save()
     {
-        await AddInventoryUseCase.ExecuteAsync(inventory);
+        var inv = new Inventory
+        {
+            InventoryId = inventory.InventoryId,
+            InventoryName = inventory.InventoryName,
+            Price = inventory.Price,
+            Quantity = inventory.Quantity
+        };
+
+        await AddInventoryUseCase.ExecuteAsync(inv);
 
         NavigationManager.NavigateTo("/inventories");
     }

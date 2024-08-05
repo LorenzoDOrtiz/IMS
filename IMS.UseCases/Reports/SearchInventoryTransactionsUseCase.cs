@@ -16,6 +16,6 @@ public class SearchInventoryTransactionsUseCase : ISearchInventoryTransactionsUs
     {
         if (dateTo.HasValue) dateTo = dateTo.Value.AddDays(1);
 
-        return await _inventoryTransactionRepository.GetInventoryTransactionsAsync(inventoryName, dateFrom, dateTo, transactionType);
+        return await _inventoryTransactionRepository.GetInventoryTransactionAsync(inventoryName, dateFrom, dateTo, transactionType);
     }
 }
